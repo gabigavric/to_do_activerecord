@@ -3,12 +3,19 @@ require("sinatra/reloader")
 require("sinatra/activerecord")
 also_reload("lib/**/*.rb")
 require("./lib/task")
+require("./lib/list")
 require("pg")
 
 
 get('/') do
-  @tasks = Task.all()
+  @lists = List.all()
   erb(:index)
+end
+
+post('/') do
+  list = params['name']
+  list = List.create({:name => name})
+  erb(:success)
 end
 
 post('/tasks') do

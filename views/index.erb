@@ -1,18 +1,20 @@
-<h1>To Do</h1>
+<h1>Your Current List</h1>
 
-<p>Here are all your tasks:</p>
+<% if @lists.any? %>
+  <h3>Here are your lists:</h3>
 
-<ul>
-  <% @tasks.not_done().each() do |task| %>
-      <li><%= task.description %> <a href="/tasks/<%= task.id() %>/edit">Update this list's description</a></li>
-  <% end %>
-</ul>
+  <ul>
+    <% @lists.each do |list| %>
+      <li><a href="/list/<%= list.id()%>"><%= list.list %></a> </li>
+    <% end %>
+  </ul>
 
-<p>Create a new task:</p>
+<% else %>
+    <p>There are no lists yet!</p>
+<% end %>
 
-<form action="/tasks" method="post">
-  <label for="description">description</label>
-  <input id="description" name="description" type="text">
-
-  <button type="submit">Add task</button>
+<h2>Add a new list:</h2>
+<form action="/" method="post">
+  <input type="text" name="list">
+  <button type="submit">Create list</button>
 </form>
